@@ -1,29 +1,111 @@
 
 # Coefficients based on academic research (e.g., Luccioni et al. 2023, Hugging Face)
-# Wh per 1000 tokens (approximate)
+# Wh per 1000 tokens (approximate) - Updated for 2026 models
 MODEL_ENERGY_TABLE = {
-    "gpt-4": 0.4,       # High estimate for very large model
-    "gpt-4-turbo": 0.35,
-    "gpt-3.5-turbo": 0.04,
-    "claude-3-opus": 0.5,
-    "claude-3-sonnet": 0.08,
-    "claude-3-haiku": 0.02,
-    "mistral-large": 0.1,
-    "mistral-medium": 0.05,
-    "llama-3-70b": 0.08,
-    "llama-3-8b": 0.015,
-    "llama-2-70b": 0.07,
-    "llama-2-13b": 0.025,
-    "llama-2-7b": 0.012,
+    # OpenAI Models
+    "gpt-5": 0.6,               # Next-gen flagship
+    "gpt-4.5-turbo": 0.45,      # Enhanced GPT-4
+    "gpt-4o": 0.4,              # Optimized GPT-4
+    "gpt-4o-mini": 0.12,        # Smaller optimized
+    "gpt-4-turbo": 0.35,        # Previous gen turbo
+    "gpt-4": 0.4,               # Legacy support
+    "gpt-3.5-turbo": 0.04,      # Legacy support
+    # --- Aliases for frontend compatibility ---
+    "gpt4": 0.4,                # Alias for gpt-4
+    "gpt-4.0": 0.4,             # Alias for gpt-4
+    "gpt-3.5": 0.04,            # Alias for gpt-3.5-turbo
+    "gpt3.5-turbo": 0.04,       # Alias for gpt-3.5-turbo
+    "gpt3.5": 0.04,             # Alias for gpt-3.5-turbo
+    "gpt3": 0.04,               # Alias for gpt-3.5-turbo (if used)
+    "o1": 0.5,                  # Reasoning model
+    "o1-mini": 0.15,            # Smaller reasoning
+    "o1-pro": 0.7,              # Pro reasoning
+    "o3": 0.8,                  # Advanced reasoning
+    "o3-mini": 0.25,            # Smaller o3
+    
+    # Anthropic Models
+    "claude-4-opus": 0.7,       # Latest flagship
+    "claude-4-sonnet": 0.3,     # Latest balanced
+    "claude-3.5-opus": 0.6,     # Previous flagship
+    "claude-3.5-sonnet": 0.15,  # Previous balanced
+    "claude-3.5-haiku": 0.04,   # Previous efficient
+    "claude-3-opus": 0.5,       # Legacy
+    "claude-3-sonnet": 0.08,    # Legacy
+    "claude-3-haiku": 0.02,     # Legacy
+    
+    # Google Models
+    "gemini-2.0-ultra": 0.55,   # Latest flagship
+    "gemini-2.0-pro": 0.3,      # Latest pro
+    "gemini-2.0-flash": 0.08,   # Latest fast
+    "gemini-1.5-ultra": 0.5,    # Previous flagship
+    "gemini-1.5-pro": 0.15,     # Previous pro
+    "gemini-1.5-flash": 0.06,   # Previous fast
+    "gemini-pro": 0.06,         # Legacy support
+    "gemini-ultra": 0.45,       # Legacy support
+    
+    # Meta Models
+    "llama-4-405b": 0.35,       # Latest largest
+    "llama-4-70b": 0.1,         # Latest large
+    "llama-4-8b": 0.02,         # Latest small
+    "llama-3.3-70b": 0.09,      # Previous
+    "llama-3.2-90b-vision": 0.12, # Multimodal
+    "llama-3.1-405b": 0.3,      # Previous large
+    "llama-3-70b": 0.08,        # Legacy
+    "llama-3-8b": 0.015,        # Legacy
+    "llama-2-70b": 0.07,        # Legacy
+    "llama-2-13b": 0.025,       # Legacy
+    "llama-2-7b": 0.012,        # Legacy
+    
+    # Mistral Models
+    "mistral-large-2": 0.15,    # Latest large
+    "mistral-medium": 0.08,     # Medium
+    "mistral-small": 0.03,      # Small
+    "mixtral-8x22b": 0.12,      # MoE large
+    "mixtral-8x7b": 0.05,       # MoE
+    "codestral": 0.04,          # Code model
+    "mistral-large": 0.1,       # Legacy
+    
+    # Cohere Models
+    "command-r-plus": 0.1,      # Enhanced
+    "command-r": 0.04,          # Standard
+    "cohere-command": 0.04,     # Legacy
+    "cohere-command-light": 0.015, # Legacy
+    
+    # xAI Models
+    "grok-3": 0.5,              # Latest
+    "grok-2": 0.15,             # Previous
+    
+    # Amazon Models
+    "amazon-nova-pro": 0.12,    # Pro
+    "amazon-nova-lite": 0.05,   # Lite
+    "amazon-titan-express": 0.04, # Express
+    
+    # DeepSeek Models
+    "deepseek-v3": 0.25,        # Latest
+    "deepseek-coder-v2": 0.1,   # Code
+    "deepseek-r1": 0.3,         # Reasoning
+    
+    # Alibaba Models
+    "qwen-2.5-max": 0.15,       # Max
+    "qwen-2.5-72b": 0.08,       # Large
+    "qwen-2.5-coder-32b": 0.05, # Code
+    
+    # Microsoft Models
+    "phi-4": 0.02,              # Latest efficient
+    "phi-3-medium": 0.018,      # Previous medium
+    "phi-3-mini": 0.008,        # Mini
+    
+    # Google Efficient Models
+    "gemma-2-27b": 0.035,       # Medium
+    "gemma-2-9b": 0.015,        # Small
+    
+    # Micro/Efficient Models
     "distilbert": 0.005,
     "bert-base": 0.008,
+    "flan-t5-xxl": 0.025,
     "flan-t5-base": 0.008,
     "flan-t5-large": 0.02,
-    "gemini-pro": 0.06,
-    "gemini-ultra": 0.45,
     "palm-2": 0.05,
-    "cohere-command": 0.04,
-    "cohere-command-light": 0.015
 }
 
 # ============================================================================
@@ -171,29 +253,55 @@ def estimate_emissions(model_name: str, prompt_tokens: int, completion_tokens: i
     - CO2 (g) = Energy (kWh) × Carbon_Intensity (g/kWh)
     """
     # 1. Look up Energy per 1k tokens (fallback to GPT-3.5 level if unknown)
-    energy_per_1k = MODEL_ENERGY_TABLE.get(model_name.lower(), 0.04) 
-    
+
+    import sys
+    print(f"[DEBUG] estimate_emissions called with model_name='{model_name}'", file=sys.stderr)
+
+    model_key = model_name.lower()
+    # Robust fallback: try direct, then alias, then default to gpt-3.5-turbo
+    aliases = {
+        "gpt-4": ["gpt4", "gpt-4.0", "gpt-4-turbo"],
+        "gpt-3.5-turbo": ["gpt-3.5", "gpt3.5-turbo", "gpt3.5", "gpt3"]
+    }
+    energy_per_1k = None
+    if model_key in MODEL_ENERGY_TABLE:
+        energy_per_1k = MODEL_ENERGY_TABLE[model_key]
+    else:
+        # Try aliases
+        for canonical, alist in aliases.items():
+            if model_key == canonical or model_key in alist:
+                energy_per_1k = MODEL_ENERGY_TABLE.get(canonical)
+                break
+    if energy_per_1k is None:
+        # Fallback to gpt-3.5-turbo as a default
+        energy_per_1k = MODEL_ENERGY_TABLE.get("gpt-3.5-turbo", 0.04)
+        methodology_note = f"Model '{model_name}' not found. Used gpt-3.5-turbo as fallback."
+        print(f"[DEBUG] Model '{model_name}' not found. Using fallback value {energy_per_1k}", file=sys.stderr)
+    else:
+        methodology_note = f"Model '{model_name}' resolved to '{model_key}'."
+        print(f"[DEBUG] Model '{model_name}' resolved to '{model_key}' with value {energy_per_1k}", file=sys.stderr)
+
     total_tokens = prompt_tokens + completion_tokens
-    
+
     # Energy (Wh) = (Tokens / 1000) * Energy_per_1k
     energy_wh = (total_tokens / 1000.0) * energy_per_1k
-    
+
     # Adjust for Data Center Efficiency (PUE)
     energy_wh_total = energy_wh * DEFAULT_PUE
-    
+
     # Convert to kWh
     energy_kwh = energy_wh_total / 1000.0
-    
+
     # 2. Look up Carbon Intensity
     ci_factor = REGION_CI_TABLE.get(region.lower(), REGION_CI_TABLE["global"])
-    
+
     # CO2 (grams) = Energy (kWh) * CI (g/kWh)
     co2_grams = energy_kwh * ci_factor
-    
+
     return {
         "energy_kwh": energy_kwh,
         "co2_grams": co2_grams,
-        "methodology": f"Coefficient-based: {energy_per_1k} Wh/1k tokens, PUE={DEFAULT_PUE}, CI={ci_factor} g/kWh"
+        "methodology": f"Coefficient-based: {energy_per_1k} Wh/1k tokens, PUE={DEFAULT_PUE}, CI={ci_factor} g/kWh. {methodology_note}"
     }
 
 def estimate_batch(model_name: str, prompt_tokens: int, completion_tokens: int, region: str, num_queries: int) -> dict:

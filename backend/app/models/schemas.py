@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 class EstimationRequest(BaseModel):
     model_name: str
@@ -66,3 +66,72 @@ class CarbonBudgetResponse(BaseModel):
     daily_limit: int
     budget_kg: float
     per_query_g: float
+
+
+# ============================================================================
+# ADVANCED FEATURE SCHEMAS
+# ============================================================================
+
+# --- Organization Management ---
+class CreateOrganizationRequest(BaseModel):
+    org_id: str
+    name: str
+    monthly_budget_kg: float
+
+class AddUserRequest(BaseModel):
+    user_id: str
+    name: str
+    role: Optional[str] = "member"
+
+class LogUsageRequest(BaseModel):
+    org_id: str
+    user_id: str
+    model_type: str  # text, image, video
+    model_name: str
+    co2_grams: float
+    energy_kwh: float
+    metadata: Optional[Dict[str, Any]] = None
+
+# --- Carbon Offset ---
+class OffsetCalculationRequest(BaseModel):
+    co2_kg: float
+    offset_type: Optional[str] = "tree_planting"
+    time_horizon_years: Optional[int] = 1
+
+# --- Alert Configuration ---
+class AlertConfigRequest(BaseModel):
+    budget_threshold_percent: Optional[int] = 80
+    daily_limit_kg: Optional[float] = None
+    model_restrictions: Optional[List[str]] = None
+    email_notifications: Optional[bool] = True
+
+# --- Training Estimation ---
+class TrainingEstimationRequest(BaseModel):
+    model_type: Optional[str] = "custom-medium"
+    gpu_hours: Optional[int] = None
+    gpu_type: Optional[str] = "a100"
+    num_gpus: Optional[int] = 8
+    region: Optional[str] = "global"
+    parameters_billions: Optional[float] = None
+
+# --- Report Generation ---
+class ReportRequest(BaseModel):
+    org_id: Optional[str] = None
+    report_type: Optional[str] = "monthly"  # monthly, weekly, annual
+    format: Optional[str] = "json"  # json, csv
+
+# --- Scheduling ---
+class ScheduleOptimizationRequest(BaseModel):
+    region: str
+    duration_hours: Optional[int] = 1
+
+# --- Comparative Analytics ---
+class ComparativeAnalyticsRequest(BaseModel):
+    org_id: str
+    industry: Optional[str] = "tech_startup"
+
+# --- Forecasting ---
+class ForecastRequest(BaseModel):
+    org_id: Optional[str] = None
+    days_ahead: Optional[int] = 30
+

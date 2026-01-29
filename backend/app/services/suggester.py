@@ -1,78 +1,78 @@
 
-# Right-sizing recommendation engine
+# Right-sizing recommendation engine (2026 Models)
 # Maps task complexity to appropriate model tiers
 
 TASK_MODEL_MAPPING = {
     # Simple tasks -> Micro/Efficient models
     "classification": {
         "recommended": "distilbert",
-        "alternatives": ["bert-base", "flan-t5-base"],
+        "alternatives": ["phi-3-mini", "gemma-2-9b"],
         "tier": "micro",
         "reason": "Classification tasks can be handled by specialized lightweight models like DistilBERT with >95% lower energy."
     },
     "sentiment analysis": {
         "recommended": "distilbert",
-        "alternatives": ["bert-base"],
+        "alternatives": ["phi-3-mini"],
         "tier": "micro",
         "reason": "Sentiment analysis is a solved problem for small models. DistilBERT achieves 97% of BERT's accuracy at 60% less compute."
     },
     "spam detection": {
         "recommended": "distilbert",
-        "alternatives": ["bert-base"],
+        "alternatives": ["phi-3-mini"],
         "tier": "micro",
         "reason": "Spam detection is a binary classification task perfect for lightweight classifiers."
     },
     
     # Moderate tasks -> Efficient/Standard models
     "summarization": {
-        "recommended": "flan-t5-large",
-        "alternatives": ["gpt-3.5-turbo", "claude-3-haiku"],
+        "recommended": "gemma-2-9b",
+        "alternatives": ["claude-3.5-haiku", "gpt-4o-mini"],
         "tier": "efficient",
-        "reason": "FLAN-T5 Large excels at summarization while using 90% less energy than GPT-4."
+        "reason": "Gemma 2 9B excels at summarization while using 90% less energy than frontier models."
     },
     "translation": {
-        "recommended": "flan-t5-large",
-        "alternatives": ["gpt-3.5-turbo"],
+        "recommended": "gemma-2-9b",
+        "alternatives": ["gpt-4o-mini", "claude-3.5-haiku"],
         "tier": "efficient",
-        "reason": "Translation is well-handled by encoder-decoder models like FLAN-T5."
+        "reason": "Translation is well-handled by efficient models like Gemma 2."
     },
     "extraction": {
-        "recommended": "llama-3-8b",
-        "alternatives": ["mistral-medium", "gpt-3.5-turbo"],
+        "recommended": "llama-4-8b",
+        "alternatives": ["phi-4", "mistral-small"],
         "tier": "efficient",
         "reason": "Information extraction works well with 8B parameter models, no need for frontier models."
     },
     "simple q&a": {
-        "recommended": "llama-3-8b",
-        "alternatives": ["mistral-medium", "gpt-3.5-turbo"],
+        "recommended": "llama-4-8b",
+        "alternatives": ["phi-4", "gpt-4o-mini"],
         "tier": "efficient",
         "reason": "Simple Q&A doesn't require the reasoning capabilities of large models."
     },
     
     # Creative tasks -> Standard models
     "creative writing": {
-        "recommended": "llama-3-70b",
-        "alternatives": ["gpt-3.5-turbo", "claude-3-sonnet"],
+        "recommended": "llama-4-70b",
+        "alternatives": ["claude-3.5-sonnet", "gemini-2.0-flash"],
         "tier": "standard",
-        "reason": "Creative writing benefits from larger models, but open-source LLaMA 3 70B matches GPT-4 at lower cost."
+        "reason": "Creative writing benefits from larger models, but open-source LLaMA 4 70B matches GPT-4 at lower cost."
     },
     "code generation": {
-        "recommended": "llama-3-70b",
-        "alternatives": ["gpt-3.5-turbo", "mistral-large"],
+        "recommended": "deepseek-coder-v2",
+        "alternatives": ["codestral", "qwen-2.5-coder-32b"],
         "tier": "standard",
-        "reason": "Code generation is well-handled by LLaMA 3 70B, which rivals GPT-4 on coding benchmarks."
+        "reason": "Specialized code models like DeepSeek Coder v2 outperform general models while using less energy."
     },
     
     # Complex tasks -> May need Frontier (but with warning)
     "reasoning": {
-        "recommended": "gpt-4",
-        "alternatives": ["claude-3-opus"],
+        "recommended": "o1-mini",
+        "alternatives": ["deepseek-r1", "o1"],
         "tier": "frontier",
-        "reason": "Complex reasoning may benefit from frontier models, but consider if simpler approaches could work."
+        "reason": "Complex reasoning benefits from specialized reasoning models. o1-mini provides good balance of capability and efficiency."
     },
     "complex analysis": {
-        "recommended": "gpt-4",
-        "alternatives": ["claude-3-opus", "gemini-ultra"],
+        "recommended": "claude-3.5-sonnet",
+        "alternatives": ["gpt-4o", "gemini-2.0-pro"],
         "tier": "frontier",
         "reason": "Deep analysis tasks may warrant frontier models. Consider breaking into smaller subtasks."
     }

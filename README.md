@@ -244,7 +244,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-**Malik Zeeshan**
+**Muhammad Zeeshan**
+- LinkedIn: [Muhammad Zeeshan](https://www.linkedin.com/in/muhammadzeeshan007/)
 - GitHub: [@MalikZeeshan1122](https://github.com/MalikZeeshan1122)
 - Repository: [Carbon-Aware-AI](https://github.com/MalikZeeshan1122/Carbon-Aware-AI)
 
